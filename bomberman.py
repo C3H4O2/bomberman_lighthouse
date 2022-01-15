@@ -375,7 +375,8 @@ key_remap = {
     40: 1073741905,  # DOWN
     39: 1073741903,  # RIGHT
     17: 1073742052,  # RCTRL
-    66: 114,         # R
+    82: 114,         # R
+    66: 98,         # R
 }
 
 def opt():
@@ -409,6 +410,7 @@ init()
 
 while True:
     clock.tick(FPS)
+    print(queue)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
