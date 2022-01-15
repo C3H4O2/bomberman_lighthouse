@@ -498,9 +498,9 @@ while True:
             pygame.draw.rect(screen, RED, (0, (h-1-i)*dy, w*dx, dy), 0)
             for j in range(w):
                 img[h-1-i][j] = RED
-            pygame.draw.rect(screen, BLUE, (0, i*dy, w*dx, dy), 0)
+            pygame.draw.rect(screen, PURPLE, (0, i*dy, w*dx, dy), 0)
             for j in range(w):
-                img[i][j] = BLUE
+                img[i][j] = PURPLE
             for j in range(5):
                 clock.tick(FPS)
                 ph.set_image(img)
