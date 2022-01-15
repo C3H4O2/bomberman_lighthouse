@@ -410,7 +410,6 @@ init()
 
 while True:
     clock.tick(FPS)
-    print(queue)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -447,7 +446,7 @@ while True:
                     reset()
                 if event.code in key_remap:
                     queue.append(key_remap[event.code])
-                queue.pop(0)
+                    queue.pop(0)
                 if queue == cc:
                     ph.stop()
                     opt()
