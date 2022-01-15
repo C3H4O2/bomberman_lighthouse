@@ -44,7 +44,6 @@ p = Pyghthouse(UNAME, TOKEN, image_callback=i.callback, frame_rate=fr)
 Pyghthouse.start(p)
 
 while True:
-    print(i.count)
     if i.count >= i.num_fr:
         Pyghthouse.stop(p)
         break
