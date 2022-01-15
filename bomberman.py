@@ -1,23 +1,23 @@
-import numpy as np
-import cv2 as cv
-from time import sleep, time
-import sys
-from math import sqrt
 import random
-import pygame
+# import numpy as np
+# import cv2 as cv
+# from time import sleep, time
+# import sys
+from math import sqrt
 import os
+import pygame
 
 from pyghthouse import Pyghthouse, VerbosityLevel
-#from alph import *
+# from alph import *
 
 ph = Pyghthouse("endanger-reclining", "API-TOK_pBn3-dhcT-URwH-Egm8-RZU/", verbosity=VerbosityLevel.NONE)
 ph.start()
 
 pygame.init()
 
-aw, ah = 840,660
+aw, ah = 840, 660
 dx, dy = 30, 60
-w, h = aw//dx,ah//dy
+w, h = aw//dx, ah//dy
 ah += dy*3
 screen = pygame.display.set_mode((aw, ah))
 clock = pygame.time.Clock()
@@ -444,7 +444,7 @@ while True:
                 pygame.display.flip()
         for i in range(120):
             clock.tick(FPS)
-            for e in pygame.event.get():pass
+            for e in pygame.event.get(): pass
             ph.set_image(img)
             pygame.display.flip()
 
