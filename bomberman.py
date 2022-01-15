@@ -364,6 +364,19 @@ def reset():
 
 cc = [1073741906, 1073741906, 1073741905, 1073741905, 1073741904,
       1073741903, 1073741904, 1073741903, 98, 97]
+key_remap = {
+    65: 97,          # A
+    68: 100,         # D
+    87: 119,         # W
+    83: 115,         # S
+    32: 32,          # SPACE
+    37: 1073741904,  # LEFT
+    38: 1073741906,  # UP
+    40: 1073741905,  # DOWN
+    39: 1073741903,  # RIGHT
+    17: 1073742052,  # RCTRL
+    66: 114,         # R
+}
 
 def opt():
     global ph
@@ -424,6 +437,30 @@ while True:
                 keys.remove(event.key)
             except:
                 pass
+
+    for event in ph.get_all_events():
+        if isinstance(event, KeyEvent):
+            if event.down:
+                if event.code == 82:
+                    reset()
+                if event.code in key_remap:
+                    queue.append(key_remap[event.code])
+                queue.pop(0)
+                if queue == cc:
+                    ph.stop()
+                    opt()
+                    ph.start()
+                if event.code in key_remap:
+                    keys.append(key_remap[event.code])
+                for pi in p:
+                    if pi.keyset[4] in keys:
+                        pi.plant()
+            else:
+                try:
+                    if event.code in key_remap:
+                        keys.remove(key_remap[event.code])
+                except:
+                    pass
 
     if not any(dead):
         screen.fill(BLACK)
