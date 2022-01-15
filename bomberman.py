@@ -27,6 +27,7 @@ FPS = 60  # Frames per second.
 BLACK = (0, 0, 0)
 GRAY = (150, 150, 150)
 WHITE = (255, 255, 255)
+PURPLE = (233, 182, 236)
 RED = (255, 0, 0)
 ORANGE = (255, 69, 0)
 GREEN = (0, 255, 0)
@@ -346,7 +347,7 @@ def reset():
     img = ph.empty_image()
 
     keys = []
-    p1, p2 = Player(1,1, BLUE, [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d, pygame.K_SPACE]), Player(w-2, h-2, GREEN, [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, 1073742052])
+    p1, p2 = Player(1,1, PURPLE, [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d, pygame.K_SPACE]), Player(w-2, h-2, GREEN, [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, 1073742052])
     p = [p1, p2]
 
     o = []
@@ -386,7 +387,7 @@ def opt():
     except: 
         pass
 
-p1, p2 = Player(1,1, BLUE, [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d, pygame.K_SPACE]), Player(w-2, h-2, GREEN, [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, 1073742052])
+p1, p2 = Player(1,1, PURPLE, [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d, pygame.K_SPACE]), Player(w-2, h-2, GREEN, [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, 1073742052])
 p = [p1, p2]
 o = []
 b = []
