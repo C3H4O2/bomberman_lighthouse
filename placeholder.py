@@ -7,6 +7,7 @@ from math import sqrt
 import os
 from pyghthouse import Pyghthouse
 #from alph import *
+from config import UNAME, TOKEN
 
 class ImageReturner:
     def __init__(self, cap, subtitles={0:None}):
@@ -15,7 +16,7 @@ class ImageReturner:
         self.count = 1
         self.num_fr = int(cap.get(7))
 
-    def callback(self):
+    def callback(self, events):
         try:
             ret, frame = self.cap.read()
 
@@ -27,11 +28,11 @@ class ImageReturner:
 
             frame = cv.resize(frame, (28,14))
             img = frame[...,::-1].tolist()
-            
+
             self.count += 1
             return img
         except:
-            exit()
+            Pyghthouse.stop(p)
 
 cap = cv.VideoCapture("ricky.mp4")
 
@@ -39,12 +40,12 @@ fr = int(cap.get(5))
 
 i = ImageReturner(cap)
 
-p = Pyghthouse("endanger-reclining",  "API-TOK_pBn3-dhcT-URwH-Egm8-RZU/", image_callback=i.callback, frame_rate=fr)
+p = Pyghthouse(UNAME, TOKEN, image_callback=i.callback, frame_rate=fr)
 Pyghthouse.start(p)
 
 while True:
-    if i.count == i.num_fr + 1:
-        p.stop()
-#        os._exit(0)
+    print(i.count)
+    if i.count >= i.num_fr:
+        Pyghthouse.stop(p)
         break
     sleep(0.1)
