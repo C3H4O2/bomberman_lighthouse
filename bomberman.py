@@ -1,4 +1,5 @@
 import random
+from config import UNAME, TOKEN
 # import numpy as np
 # import cv2 as cv
 # from time import sleep, time
@@ -7,10 +8,10 @@ from math import sqrt
 import os
 import pygame
 
-from pyghthouse import Pyghthouse, VerbosityLevel
+from pyghthouse import Pyghthouse, VerbosityLevel, KeyEvent
 # from alph import *
 
-ph = Pyghthouse("endanger-reclining", "API-TOK_pBn3-dhcT-URwH-Egm8-RZU/", verbosity=VerbosityLevel.NONE)
+ph = Pyghthouse(UNAME, TOKEN, verbosity=VerbosityLevel.NONE, stream_remote_inputs=True)
 ph.start()
 
 pygame.init()
@@ -177,7 +178,11 @@ class Player(Object):
         self.bombtimers = []
 
     def move(self, Dx, Dy):
-        if all([pi.x != self.x+Dx or pi.y != self.y+Dy for pi in p]) and all([oi.x != self.x+Dx or oi.y != self.y+Dy for oi in o+bx+b]) and not (self.x+Dx<0 or self.x+Dx>=w) and not (self.y+Dy<0 or self.y+Dy>=h):
+        if (all([pi.x != self.x+Dx or pi.y != self.y+Dy for pi in p]) and
+            all([oi.x != self.x+Dx or oi.y != self.y+Dy for oi in o+bx+b]) and
+            not (self.x+Dx<0 or self.x+Dx>=w) and
+            not (self.y+Dy<0 or self.y+Dy>=h)):
+
             self.x += Dx
             self.y += Dy
             for pui in pu:
@@ -357,7 +362,8 @@ def reset():
     init()
 
 
-cc = [1073741906, 1073741906, 1073741905, 1073741905, 1073741904, 1073741903, 1073741904, 1073741903, 98, 97]
+cc = [1073741906, 1073741906, 1073741905, 1073741905, 1073741904,
+      1073741903, 1073741904, 1073741903, 98, 97]
 
 def opt():
     global ph
@@ -396,16 +402,16 @@ while True:
             os._exit(0)
             quit()
         elif event.type == pygame.KEYDOWN:
-            if event.key==pygame.K_r:
+            if event.key == pygame.K_r:
                 reset()
-            elif event.key==pygame.K_ESCAPE:
+            elif event.key == pygame.K_ESCAPE:
                 pygame.quit()
                 ph.stop()
                 os._exit(0)
                 exit()
             queue.append(event.key)
             queue.pop(0)
-            if queue==cc:
+            if queue == cc:
                 ph.stop()
                 opt()
                 ph.start()
