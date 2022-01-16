@@ -1,5 +1,7 @@
-# Imports
+# Abgabe als Gruppe
+# Gruppenmitglieder: Emil Büttner, Emil Wiards
 
+# Imports
 import random
 from config import UNAME, TOKEN
 from math import sqrt
