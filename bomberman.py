@@ -17,7 +17,7 @@ pygame.init()
 # size and color constants
 aw, ah = 840, 660
 dx, dy = 30, 60
-w, h = aw//dx, ah//dy
+w, h = aw//dx - 3, ah//dy - 2
 ah += dy*3
 FPS = 60  # Frames per second.
 
@@ -394,7 +394,8 @@ def opt():
         pass
 
 # first variable initialisation
-p1, p2 = Player(1,1, PURPLE, [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d, pygame.K_SPACE]), Player(w-2, h-2, GREEN, [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, 1073742052])
+p1, p2 = (Player(1,1, PURPLE, [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d, pygame.K_SPACE]),
+          Player(w-2, h-2, GREEN, [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, 1073742052]))
 p = [p1, p2]
 o = []
 b = []
@@ -530,6 +531,13 @@ while True:
 
 
     # displaying drawn images
+
+    # shifting image to be centered on lighthouse
+    img.pop()
+    img = [[[0,0,0]]*28] + img
+    for i in range(len(img)):
+        img[i] = [[0,0,0]] + img[i][:-1]
+
     ph.set_image(img)
     pygame.display.flip()
 
