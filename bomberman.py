@@ -1,3 +1,5 @@
+# Imports
+
 import random
 from config import UNAME, TOKEN
 # import numpy as np
@@ -11,17 +13,17 @@ import pygame
 from pyghthouse import Pyghthouse, VerbosityLevel, KeyEvent
 # from alph import *
 
+# Pyghthouse initialisiation
 ph = Pyghthouse(UNAME, TOKEN, verbosity=VerbosityLevel.NONE, stream_remote_inputs=True)
 ph.start()
 
 pygame.init()
 
+# size and color constants
 aw, ah = 840, 660
 dx, dy = 30, 60
 w, h = aw//dx, ah//dy
 ah += dy*3
-screen = pygame.display.set_mode((aw, ah))
-clock = pygame.time.Clock()
 FPS = 60  # Frames per second.
 
 BLACK = (0, 0, 0)
@@ -37,11 +39,17 @@ PUCOL1 = (164, 198, 57)
 PUCOL2 = (153, 102, 204)
 PUCOL3 = (127, 255, 212)
 
+# Pygame screen and clock initialisation
+screen = pygame.display.set_mode((aw, ah))
+clock = pygame.time.Clock()
 
 
+# Frames til a bomb explodes after being planted
 bt = 200
 
 
+# Basic Object class with position and color attributes
+# and a individual timer for timing used for drawing
 class Object:
     def __init__(self, x, y, color):
         self.x = x
@@ -49,6 +57,9 @@ class Object:
         self.color = color
         self.st = 30
 
+# Powerup class:
+#   init: random choice for attribute to power up
+#   draw: displays Powerup blinking
 class Powerup(Object):
     def __init__(self, x, y):
         r = random.random()
@@ -62,6 +73,7 @@ class Powerup(Object):
             self.pu = 2
             super().__init__(x,y,PUCOL3)
         self.dcol = self.color
+
     def draw(self):
         self.st -= 1
         if self.st==0:
@@ -71,7 +83,9 @@ class Powerup(Object):
                 self.color = BLACK
             self.st = 30
             
-
+# Bomb class:
+#   init: sets behaviour matching the planters attributes
+#   draw: displays bomb blinking exponenitonally faster until the bomb explodes
 class Bomb(Object):
     def __init__(self, x, y, strength):
         super().__init__(x, y, RED)
@@ -96,6 +110,12 @@ class Bomb(Object):
         pygame.draw.rect(screen, self.color, (self.x*dx, self.y*dy, dx, dy), 0)
         img[self.y][self.x] = self.color
 
+# Explosion class:
+#   init: affected positions are calculated according to parameters of bomb
+#   collision: checks for nearby bombs (initialises explosion),
+#       boxes (destroys boxes) and checks for objects in the way
+#   death: checks if a player is or moves into the explosion
+#   draw: displays the explosion
 class Explosion(Object):
     def __init__(self, b):
         super().__init__(b.x, b.y, ORANGE)
@@ -167,7 +187,10 @@ class Explosion(Object):
 #             if self.collision(self.x, yi): break
 
 
-
+# Player class:
+#   init: set starting attributes
+#   move: moves the player in the specified direction
+#   plant: plants a bomb at the current location of the player
 class Player(Object):
     def __init__(self, x, y, color, keyset):
         super().__init__(x, y, color)
@@ -206,6 +229,7 @@ class Player(Object):
                 b.append(Bomb(self.x, self.y, self.exp_strength))
 
 
+# actions function: handles keys actions regarding the movement
 def actions():
     for j, pi in enumerate(p):
         if pi.next_move <= t:
@@ -234,6 +258,9 @@ def actions():
                 mat[j] = matd
 
 
+# draw function: displays everything in local pygame window
+#   and via lighthouse api.
+#   Additionally some interaction behaviour between certain object ist set here
 def draw():
     global img
     for oi in o+bx:
@@ -313,7 +340,7 @@ def draw():
         img[h+2][w-2*i-1] = PUCOL3
 
 
-
+# init function: initialises box and object positions
 def init():
     for xi in range(2, w-2, 2):
         for yi in range(2, h-2, 2):
@@ -330,6 +357,7 @@ def init():
             for xi in range(2, w-2):
                 bx.append(Object(xi, yi, BROWN))
 
+# reset function: resets  all variables
 def reset():
     global p1
     global p2
@@ -363,6 +391,7 @@ def reset():
     init()
 
 
+# keyremapping for online key input
 cc = [1073741906, 1073741906, 1073741905, 1073741905, 1073741904,
       1073741903, 1073741904, 1073741903, 98, 97]
 key_remap = {
@@ -387,6 +416,7 @@ def opt():
     except: 
         pass
 
+# first variable initialisation
 p1, p2 = Player(1,1, PURPLE, [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d, pygame.K_SPACE]), Player(w-2, h-2, GREEN, [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, 1073742052])
 p = [p1, p2]
 o = []
@@ -409,9 +439,11 @@ queue = [0]*10
 
 init()
 
+# main loop
 while True:
     clock.tick(FPS)
 
+    # pygame event loop for local keyboard inputs
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             os._exit(0)
@@ -440,6 +472,7 @@ while True:
             except:
                 pass
 
+    # pyghthouse event loop for online keyboard inputs
     for event in ph.get_all_events():
         if isinstance(event, KeyEvent):
             if event.down:
@@ -464,6 +497,7 @@ while True:
                 except:
                     pass
 
+    # GAME OVER screen + behaviour
     if not any(dead):
         screen.fill(BLACK)
         img = ph.empty_image()
@@ -514,7 +548,9 @@ while True:
 
 
 
+    # displaying drawn images
     ph.set_image(img)
     pygame.display.flip()
 
+    # increase loop counter / time
     t += 1
