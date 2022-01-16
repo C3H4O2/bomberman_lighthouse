@@ -44,12 +44,12 @@ screen = pygame.display.set_mode((aw, ah))
 clock = pygame.time.Clock()
 
 
-# Frames til a bomb explodes after being planted
+# Frames till a bomb explodes after being planted
 bt = 200
 
 
 # Basic Object class with position and color attributes
-# and a individual timer for timing used for drawing
+# and a individual timer used for drawing
 class Object:
     def __init__(self, x, y, color):
         self.x = x
