@@ -1,10 +1,10 @@
-                       |1
-                       |2
-                       |3    | You are supposed to build you're map in here.
-                       |4 <--| Your map has to be 23 x 7, this box already
-                       |5    | has the proper size.
-                       |6
-                       |7
+1       XXXBXXX       2|1
+  XXXXBXXXXBXXXXBXXXX  |2
+  BBBBBBBBBBBBBBBBBBB  |3    | You are supposed to build you're map in here.
+  BBBBBBBBBBBBBBBBBBB  |4 <--| Your map has to be 23 x 7, this box already
+  XXXXBXXXXBXXXXBXXXX  |4    | has the proper size.
+        XXXBXXX        |6
+  BBBBBBBBXBXBBBBBBBB  |7
 ------------------------
 1234567891.........2...
          01234567890123
