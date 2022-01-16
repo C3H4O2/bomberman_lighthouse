@@ -417,6 +417,15 @@ queue = [0]*10
 
 init()
 
+# shifting image to be centered on lighthouse
+def center_img(img):
+    ret = [[[0,0,0]]*28] + img[:-1]
+    for i in range(len(ret)):
+        ret[i] = [[0,0,0]] + ret[i][:-1]
+
+    return ret
+
+
 # main loop
 while True:
     clock.tick(FPS)
@@ -497,13 +506,13 @@ while True:
                 img[i][j] = ec
             for i in range(5):
                 clock.tick(FPS)
-                ph.set_image(img)
+                ph.set_image(center_img(img))
                 pygame.display.flip()
         for i in range(120):
             clock.tick(FPS)
             for e in pygame.event.get(): pass
             for e in ph.get_all_events(): pass
-            ph.set_image(img)
+            ph.set_image(center_img(img))
             pygame.display.flip()
 
         hh = (h+1)//2
@@ -516,13 +525,13 @@ while True:
                 img[i][j] = BLUE
             for j in range(5):
                 clock.tick(FPS)
-                ph.set_image(img)
+                ph.set_image(center_img(img))
                 pygame.display.flip()
         while not (any([e.type == pygame.KEYDOWN
                         for e in pygame.event.get()])
                    or any([isinstance(e, KeyEvent)
                            for e in ph.get_all_events()])):
-            ph.set_image(img)
+            ph.set_image(center_img(img))
             pygame.display.flip()
 
         reset()
@@ -531,14 +540,7 @@ while True:
 
 
     # displaying drawn images
-
-    # shifting image to be centered on lighthouse
-    img.pop()
-    img = [[[0,0,0]]*28] + img
-    for i in range(len(img)):
-        img[i] = [[0,0,0]] + img[i][:-1]
-
-    ph.set_image(img)
+    ph.set_image(center_img(img))
     pygame.display.flip()
 
     # increase loop counter / time
