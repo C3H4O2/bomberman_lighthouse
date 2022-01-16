@@ -381,7 +381,7 @@ key_remap = {
     39: 1073741903,  # RIGHT
     17: 1073742052,  # RCTRL
     82: 114,         # R
-    66: 98,         # R
+    66: 98,         # B
 }
 
 
@@ -501,6 +501,7 @@ while True:
         for i in range(120):
             clock.tick(FPS)
             for e in pygame.event.get(): pass
+            for e in ph.get_all_events(): pass
             ph.set_image(img)
             pygame.display.flip()
 
@@ -516,7 +517,10 @@ while True:
                 clock.tick(FPS)
                 ph.set_image(img)
                 pygame.display.flip()
-        while not any([e.type == pygame.KEYDOWN for e in pygame.event.get()]):
+        while not (any([e.type == pygame.KEYDOWN
+                        for e in pygame.event.get()])
+                   or any([isinstance(e, KeyEvent)
+                           for e in ph.get_all_events()])):
             ph.set_image(img)
             pygame.display.flip()
 
