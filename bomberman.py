@@ -382,6 +382,8 @@ key_remap = {
     66: 98,         # R
 }
 
+
+# developer tools
 def opt():
     global ph
     try:
@@ -445,7 +447,7 @@ while True:
             except:
                 pass
 
-    # pyghthouse event loop for online keyboard inputs
+    # pyghthouse event loop for remote keyboard inputs - experimental and new pyghthouse feature
     for event in ph.get_all_events():
         if isinstance(event, KeyEvent):
             if event.down:
