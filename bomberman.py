@@ -1,4 +1,4 @@
-# Abgabe als Gruppe
+# Abgabe als Gruppe Emil^2
 # Gruppenmitglieder: Emil Büttner, Emil Wiards
 
 # Imports
