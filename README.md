@@ -11,4 +11,4 @@ either the *blast radius*, *movement speed* or *amount of plantable bombs*.
 - 1-2 players
 - Custom maps
 - Map builder
-- *hidden feature*
+- <s>*hidden feature*</s>
