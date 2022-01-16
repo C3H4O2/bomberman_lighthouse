@@ -355,7 +355,6 @@ def read_map(map_path):
     if not all(i in "".join(gmap) for i in "12"):
         return False
 
-    print(gmap)
     global p1
     global p2
     global p
