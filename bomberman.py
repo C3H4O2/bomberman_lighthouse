@@ -6,6 +6,7 @@ import random
 from config import UNAME, TOKEN
 from math import sqrt
 import os
+import sys
 import pygame
 
 from pyghthouse import Pyghthouse, VerbosityLevel, KeyEvent
@@ -317,6 +318,12 @@ def draw():
 
 # init function: initialises box and object positions
 def init():
+    if len(sys.argv) == 2:
+        if read_map(sys.argv[-1]):
+            return
+    elif len(sys.argv) > 2:
+        print("Invalid argument(s)! Starting standard map.")
+
     for xi in range(2, w-2, 2):
         for yi in range(2, h-2, 2):
             o.append(Object(xi, yi, WHITE))
@@ -331,6 +338,42 @@ def init():
         if not yi in range(2, h-2, 2):
             for xi in range(2, w-2):
                 bx.append(Object(xi, yi, BROWN))
+
+# reads custom made map
+def read_map(map_path):
+
+    for xi in range(w):
+        o.append(Object(xi, 0, WHITE))
+        o.append(Object(xi, h-1, WHITE))
+    for yi in range(1,h-1):
+        o.append(Object(0, yi, WHITE))
+        o.append(Object(w-1, yi, WHITE))
+
+    with open(map_path) as f:
+        gmap = [i[:23] for i in f.readlines()[:7]]
+
+    if not all(i in "".join(gmap) for i in "12"):
+        return False
+
+    print(gmap)
+    global p1
+    global p2
+    global p
+    global lp
+    for y in range(len(gmap)):
+        for x in range(len(gmap[y])):
+            if gmap[y][x] == "X":
+                o.append(Object(x+1, y+1, WHITE))
+            elif gmap[y][x] == "B":
+                bx.append(Object(x+1, y+1, BROWN))
+            elif gmap[y][x] == "1":
+                p1 = Player(x+1, y+1, PURPLE, [pygame.K_w, pygame.K_s, pygame.K_a, pygame.K_d, pygame.K_SPACE])
+            elif gmap[y][x] == "2":
+                p2 = Player(x+1, y+1, GREEN, [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT, 1073742052])
+    p = [p1, p2]
+    lp = [[0, 0], [w-1, h-1]]
+
+    return True
 
 # reset function: resets  all variables
 def reset():

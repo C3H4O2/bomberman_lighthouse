@@ -1,0 +1,30 @@
+                       |1
+                       |2
+                       |3    | You are supposed to build you're map in here.
+                       |4 <--| Your map has to be 23 x 7, this box already
+                       |5    | has the proper size.
+                       |6
+                       |7
+------------------------
+12345678901234567890123
+         11111111112222
+
+How to Build a Map
+------------------
+
+You can set the players starting points with the characters 1 and 2,
+representing player one (1, wasd) and player two (2, arrow-keys).
+
+Use the X symbol (capitalised) too place an indestructable object (white box).
+Use the B symbol (capitalised) too place a destructable object (brown box).
+A simple space indicates a empty spot, the game will leave it free.
+
+The game won't check if your map works, so check if your map leaves enough room
+for the players to move around in and at least one path from one player to the
+other with at most destructable boxes in the way if you want to be able to play
+the map.
+
+Note: This file can be used as a template to build a map. The game only reads the
+      first 7 lines and only their first 23 characters. The extension does not
+      matter, you just have to give the proper path as an argument on start.
+      Characters that are not listed here will be ignored.
