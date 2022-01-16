@@ -12,3 +12,10 @@ either the *blast radius*, *movement speed* or *amount of plantable bombs*.
 - Custom maps
 - Map builder
 - <s>*hidden feature*</s>
+
+### Usage
+Create a config.py file with your username and api-token
+```
+UNAME = "Your Username"
+TOKEN = "Your api-token"
+```
