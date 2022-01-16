@@ -2,18 +2,11 @@
 
 import random
 from config import UNAME, TOKEN
-# import numpy as np
-# import cv2 as cv
-# from time import sleep, time
-# import sys
 from math import sqrt
 import os
 import pygame
 
 from pyghthouse import Pyghthouse, VerbosityLevel, KeyEvent
-# from alph import *
-
-# Pyghthouse initialisiation
 ph = Pyghthouse(UNAME, TOKEN, verbosity=VerbosityLevel.NONE, stream_remote_inputs=True)
 ph.start()
 
@@ -138,7 +131,6 @@ class Explosion(Object):
                 return 1
 
             self.vis.append((x, y))
-            # pygame.draw.rect(screen, self.color, (x*dx, y*dy, dx, dy), 0)
 
             for i in range(len(bx)):
                 if x==bx[i].x and y==bx[i].y:
@@ -147,14 +139,6 @@ class Explosion(Object):
                     bx.pop(i)
                     return 1
             
-#            pl = []
-#            for pui in pu:
-#                if x==pui.x and y==pui.y:
-#                    pl.append(pui)
-#            for i in pl:
-#                pu.remove(i)
-
-
             for i in range(len(b)):
                 if b[i].x==x and b[i].y==y:
                     b[i].exp = 1
@@ -175,17 +159,6 @@ class Explosion(Object):
             pygame.draw.rect(screen, self.color, (i[0]*dx, i[1]*dy, dx, dy), 0)
             img[i[1]][i[0]] = self.color
             self.death(i[0], i[1])
-        
-#         pygame.draw.rect(screen, self.color, (self.x*dx, self.y*dy, dx, dy), 0)
-#         for xi in range(self.x, self.x+self.strength+1):
-#             if self.collision(xi, self.y): break
-#         for xi in range(self.x, self.x-self.strength-1,-1):
-#             if self.collision(xi, self.y): break
-#         for yi in range(self.y, self.y+self.strength+1):
-#             if self.collision(self.x, yi): break
-#         for yi in range(self.y, self.y-self.strength-1,-1):
-#             if self.collision(self.x, yi): break
-
 
 # Player class:
 #   init: set starting attributes
