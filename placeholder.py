@@ -34,7 +34,7 @@ class ImageReturner:
         except:
             Pyghthouse.stop(p)
 
-cap = cv.VideoCapture("ricky.mp4")
+cap = cv.VideoCapture("roll.mp4")
 
 fr = int(cap.get(5))
 
